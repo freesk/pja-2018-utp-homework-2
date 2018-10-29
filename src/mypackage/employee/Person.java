@@ -20,6 +20,19 @@ public abstract class Person {
 	// * age (derived --- computed based on birth date) --- implemented as a
 	// getter calculating the difference between the current date and birth date
 
+	// (assignment 02)
+	// attributes:
+	// * first name
+	// * surname
+	// * birth date
+	// * age (derived --- computed based on birth date)
+	
+	// (assignment 03)
+	// methods:
+	// * is older than other person
+	// * is younger than other person
+	// * compare age with other person's age
+	
 	private final String _firstName; // backing field
 	private final String _surname;
 	private final Date _birthDate; 
@@ -33,16 +46,28 @@ public abstract class Person {
 		counter++;
 	}
 	
+	public boolean isOlderThan(Person p) {
+		return _birthDate.before(p.getBirthDate());
+	}
+	
+	public boolean isYoungerThan(Person p) {
+		return _birthDate.after(p.getBirthDate());
+	}
+	
+	public void compareAgeTo(Person p) {
+		System.out.println(_birthDate.compareTo(p.getBirthDate()));
+	}
+	
 	public int getAgeInYears(Date currentDate) {
-		int ageInYearsInt = (int) (long) getAgeInDays(currentDate);
+		long ageInYearsLong = getAgeInDays(currentDate) / 365L;
+		int ageInYearsInt = (int) (long) ageInYearsLong;
 	    return ageInYearsInt;
 	}
 	
 	private long getAgeInDays(Date currentDate) {
 		long diffInMs = Math.abs(currentDate.getTime() - _birthDate.getTime());
 	    long diffInDays = TimeUnit.DAYS.convert(diffInMs, TimeUnit.MILLISECONDS);
-		long ageInYearsLong = diffInDays / 365L;
-		return ageInYearsLong;
+		return diffInDays;
 	}
 	
 	public Date getBirthDate() {

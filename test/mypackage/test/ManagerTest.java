@@ -45,6 +45,18 @@ public class ManagerTest {
 	}
 	
 	@Test
+	public void isSalaryGreaterThanBigger() {
+		BigDecimal n = new BigDecimal("8000");
+		Assert.assertEquals(false, m1.isSalaryGreaterThan(n));
+	}
+	
+	@Test
+	public void isSalaryGreaterThanSmaller() {
+		BigDecimal n = new BigDecimal("1000");
+		Assert.assertEquals(true, m1.isSalaryGreaterThan(n));
+	}
+	
+	@Test
 	public void getAgeInYearsZeroYears() {
 		Date date = new Date();
 		Manager m = new Manager("", "", date, null, null, date, null);
@@ -72,6 +84,56 @@ public class ManagerTest {
 	@Test 
 	public void getAllSubordinates() {
 		Assert.assertEquals(m1.getAllSubordinates(allEmployees).size(), 4);
+	}
+	
+	@Test 
+	public void isSeniorityLongerThanYears() {
+		Date date = new Date();
+		
+		// employment date 3 years ago 
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		c.add(Calendar.YEAR, -2);
+		Date employmentDate = c.getTime();
+		
+		Manager m = new Manager("", "", null, null, null, employmentDate, null);
+		
+		// 3 years is longer than 2
+		Assert.assertEquals(m.isSeniorityLongerThanYears(1), true);
+		
+		// employment date 1 years ago 
+		c = Calendar.getInstance();
+		c.setTime(date);
+		c.add(Calendar.YEAR, -1);
+		employmentDate = c.getTime();
+		
+		m = new Manager("", "", null, null, null, employmentDate, null);
+		
+		// 1 years is not longer than 2
+		Assert.assertEquals(m.isSeniorityLongerThanYears(2), false);
+	}
+	
+	@Test 
+	public void isSeniorityLongerThanMonths() {
+		Date date = new Date();
+		
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		c.add(Calendar.MONTH, -2);
+		Date employmentDate = c.getTime();
+		
+		Manager m = new Manager("", "", null, null, null, employmentDate, null);
+	
+		Assert.assertEquals(m.isSeniorityLongerThanMonths(1), true);
+		
+		c = Calendar.getInstance();
+		c.setTime(date);
+		c.add(Calendar.MONTH, -1);
+		employmentDate = c.getTime();
+		
+		m = new Manager("", "", null, null, null, employmentDate, null);
+	
+		Assert.assertEquals(m.isSeniorityLongerThanMonths(2), false);
 	}
 
 }
