@@ -4,4 +4,3 @@ Universal Programming Techniques homework 3
 
 Example of stream functions 
 
-
